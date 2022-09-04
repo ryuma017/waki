@@ -1,0 +1,21 @@
+schema {
+    query: QueryRoot
+}
+
+type QueryRoot {
+    page(title: String!): Page
+}
+
+type Page {
+    title: String!
+    bodyHtml: String!
+    revisions: [PageRevision!]!
+    createTime: String!
+    updateTime: String!
+}
+
+type PageRevision {
+    source: String!
+    author: String!
+    createTime: String!
+}

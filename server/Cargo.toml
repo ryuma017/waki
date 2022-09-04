@@ -10,4 +10,5 @@ actix-web = "4.1.0"
 anyhow = "1.0.63"
 async-graphql = "4.0.12"
 async-graphql-actix-web = "4.0.12"
+sqlx = { version = "0.6", default-features = false, features = ["runtime-tokio-rustls", "macros", "postgres", "chrono", "migrate"] }
 tokio = { version = "1.21.0", features = ["macros", "rt-multi-thread"] }

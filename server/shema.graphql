@@ -3,10 +3,12 @@ schema {
 }
 
 type QueryRoot {
-    page(title: String!): Page
+    page(id: Int!): Page
+    pageByTitle(title: String!): Page
 }
 
 type Page {
+    id: Int!
     title: String!
     bodyHtml: String!
     revisions: [PageRevision!]!
@@ -15,7 +17,24 @@ type Page {
 }
 
 type PageRevision {
+    id: Int!
     source: String!
     author: String!
     createTime: String!
+}
+
+type MutationRoot {
+    createPage(input: CreatePageInput!): Page!
+    updatePage(input: UpdatePageInput!): Page!
+}
+
+type CreatePageInput {
+    title: String!
+    source: String!
+}
+
+type UpdatePageInput {
+    id: Int!
+    title: String!
+    source: String!
 }

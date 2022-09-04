@@ -1,7 +1,7 @@
 create table pages (
     id serial not null primary key,
     title varchar(512) not null,
-    body_html text not null,
+    source text not null,
     create_time timestamp not null,
     update_time timestamp not null
 );

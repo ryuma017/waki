@@ -40,12 +40,6 @@ impl MutationRoot {
         .fetch_one(&mut tx)
         .await?;
 
-        let gql_page = Page {
-            id: page_record.id,
-            title: page_record.title,
-            body_html: page_record.source,
-        };
-
         sqlx::query!(
             r#"
         insert into page_revisions (
@@ -63,6 +57,8 @@ impl MutationRoot {
         .await?;
 
         tx.commit().await?;
+
+        let gql_page = page_record.into();
 
         Ok(gql_page)
     }

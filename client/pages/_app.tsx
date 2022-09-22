@@ -11,7 +11,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-function Wiki({ Component, pageProps }: AppProps) {
+function Waki({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
       <Component {...pageProps} />
@@ -19,6 +19,4 @@ function Wiki({ Component, pageProps }: AppProps) {
   );
 }
 
-export default Wiki;
-
-// 2:27:00~ CORS error どうないする
+export default Waki;

@@ -19,7 +19,7 @@ async fn index(schema: web::Data<WikiSchema>, req: GraphQLRequest) -> GraphQLRes
 async fn index_graphiql() -> Result<HttpResponse> {
     Ok(HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
-        .body(playground_source(GraphQLPlaygroundConfig::new("/graphql"))))
+        .body(playground_source(GraphQLPlaygroundConfig::new("/"))))
 }
 
 #[tokio::main]
@@ -44,9 +44,9 @@ async fn main() -> std::io::Result<()> {
                     .max_age(3600),
             )
             .app_data(Data::new(schema.clone()))
-            .service(web::resource("/graphql").guard(guard::Post()).to(index))
+            .service(web::resource("/").guard(guard::Post()).to(index))
             .service(
-                web::resource("/graphql")
+                web::resource("/")
                     .guard(guard::Get())
                     .to(index_graphiql),
             )

@@ -10,7 +10,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <h1>{data?.pageByTitle?.title}</h1>
+      {/* <h1>{data?.pageByTitle?.title}</h1> */}
       <div dangerouslySetInnerHTML={{ __html: data?.pageByTitle?.bodyHtml ?? "" }}></div>
     </>
   );

@@ -8,4 +8,4 @@ DB_PORT="${POSTGRES_PORT:=5432}"
 
 export PGPASSWORD="${DB_PASSWORD:=password}"
 
-psql -h "localhost" -U "${DB_USER}" -p "${DB_PORT}" -d "wiki"
+psql -h "localhost" -U "${DB_USER}" -p "${DB_PORT}" -d "waki"

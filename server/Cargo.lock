@@ -2129,6 +2129,21 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "49874b5167b65d7193b8aba1567f5c7d93d001cafc34600cee003eda787e483f"
 
 [[package]]
+name = "waki-api"
+version = "0.1.0"
+dependencies = [
+ "actix-cors",
+ "actix-web",
+ "anyhow",
+ "async-graphql",
+ "async-graphql-actix-web",
+ "chrono",
+ "pulldown-cmark",
+ "sqlx",
+ "tokio",
+]
+
+[[package]]
 name = "wasi"
 version = "0.10.0+wasi-snapshot-preview1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2231,21 +2246,6 @@ checksum = "524b58fa5a20a2fb3014dd6358b70e6579692a56ef6fce928834e488f42f65e8"
 dependencies = [
  "wasm-bindgen",
  "web-sys",
-]
-
-[[package]]
-name = "wiki-api"
-version = "0.1.0"
-dependencies = [
- "actix-cors",
- "actix-web",
- "anyhow",
- "async-graphql",
- "async-graphql-actix-web",
- "chrono",
- "pulldown-cmark",
- "sqlx",
- "tokio",
 ]
 
 [[package]]

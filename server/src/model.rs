@@ -11,7 +11,7 @@ use crate::{
     model::{mutation::MutationRoot, query::QueryRoot},
 };
 
-pub type WikiSchema = Schema<QueryRoot, MutationRoot, EmptySubscription>;
+pub type WakiSchema = Schema<QueryRoot, MutationRoot, EmptySubscription>;
 
 #[allow(dead_code)]
 #[derive(Debug)]

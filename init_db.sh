@@ -17,7 +17,7 @@ fi
 
 DB_USER="${POSTGRES_USER:=postgres}"
 DB_PASSWORD="${POSTGRES_PASSWORD:=password}"
-DB_NAME="${POSTGRES_DB:=wiki}"
+DB_NAME="${POSTGRES_DB:=waki}"
 DB_PORT="${POSTGRES_PORT:=5432}"
 
 export PGPASSWORD="${DB_PASSWORD:=password}"

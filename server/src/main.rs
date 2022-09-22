@@ -10,9 +10,9 @@ use async_graphql as agql;
 use async_graphql_actix_web::{GraphQLRequest, GraphQLResponse};
 use sqlx::postgres::PgPoolOptions;
 
-use wiki_api::model::{mutation::MutationRoot, query::QueryRoot, WikiSchema};
+use waki_api::model::{mutation::MutationRoot, query::QueryRoot, WakiSchema};
 
-async fn index(schema: web::Data<WikiSchema>, req: GraphQLRequest) -> GraphQLResponse {
+async fn index(schema: web::Data<WakiSchema>, req: GraphQLRequest) -> GraphQLResponse {
     schema.execute(req.into_inner()).await.into()
 }
 
@@ -26,7 +26,7 @@ async fn index_graphiql() -> Result<HttpResponse> {
 async fn main() -> std::io::Result<()> {
     let pg_pool = PgPoolOptions::new()
         .acquire_timeout(Duration::from_secs(5))
-        .connect("postgres://postgres:password@localhost:5432/wiki")
+        .connect("postgres://postgres:password@localhost:5432/waki")
         .await
         .unwrap();
     let schema = Schema::build(QueryRoot, MutationRoot, EmptySubscription)

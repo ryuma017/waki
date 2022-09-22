@@ -1,6 +1,7 @@
 use std::time::Duration;
 
-use actix_web::{guard, web, web::Data, App, HttpResponse, HttpServer, Result};
+use actix_cors::Cors;
+use actix_web::{guard, web, web::Data, App, HttpResponse, HttpServer, Result, http::header};
 use agql::{
     http::{playground_source, GraphQLPlaygroundConfig},
     EmptySubscription, Schema,
@@ -34,6 +35,14 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(move || {
         App::new()
+            .wrap(
+                Cors::default()
+                    .allowed_origin("http://localhost:3000")
+                    .allowed_methods(vec!["GET", "POST"])
+                    .allowed_headers(vec![header::AUTHORIZATION, header::ACCEPT])
+                    .allowed_header(header::CONTENT_TYPE)
+                    .max_age(3600),
+            )
             .app_data(Data::new(schema.clone()))
             .service(web::resource("/graphql").guard(guard::Post()).to(index))
             .service(

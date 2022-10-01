@@ -20,7 +20,11 @@ impl QueryRoot {
         Ok(msg)
     }
 
-    async fn page(&self, ctx: &agql::Context<'_>, id: i32) -> Result<Option<Page>, agql::Error> {
+    async fn page_by_id(
+        &self,
+        ctx: &agql::Context<'_>,
+        id: i32,
+    ) -> Result<Option<Page>, agql::Error> {
         let pool = ctx.data::<PgPool>()?;
 
         let page_record = sqlx::query_as!(

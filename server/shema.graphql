@@ -8,6 +8,11 @@ input CreatePageInput {
     source: String!
 }
 
+input UpdatePageInput {
+    title: String
+    source: String
+}
+
 type QueryRoot {
     page(id: Int!): Page
     pageByTitle(title: String!): Page
@@ -31,7 +36,7 @@ type PageRevision {
 
 type MutationRoot {
     createPage(input: CreatePageInput!): Page!
-    updatePage(input: UpdatePageInput!): Page!
+    updatePage(input: UpdatePageInput!): Page
 }
 
 type UpdatePageInput {

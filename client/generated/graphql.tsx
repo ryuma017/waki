@@ -23,11 +23,17 @@ export type CreatePageInput = {
 export type MutationRoot = {
   __typename?: 'MutationRoot';
   createPage: Page;
+  updatePage?: Maybe<Page>;
 };
 
 
 export type MutationRootCreatePageArgs = {
   input: CreatePageInput;
+};
+
+
+export type MutationRootUpdatePageArgs = {
+  input: UpdatePageInput;
 };
 
 export type Page = {
@@ -40,12 +46,12 @@ export type Page = {
 export type QueryRoot = {
   __typename?: 'QueryRoot';
   msg: Scalars['String'];
-  page?: Maybe<Page>;
+  pageById?: Maybe<Page>;
   pageByTitle?: Maybe<Page>;
 };
 
 
-export type QueryRootPageArgs = {
+export type QueryRootPageByIdArgs = {
   id: Scalars['Int'];
 };
 
@@ -54,10 +60,23 @@ export type QueryRootPageByTitleArgs = {
   title: Scalars['String'];
 };
 
+export type UpdatePageInput = {
+  id: Scalars['Int'];
+  source?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
 export type CreatePageMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CreatePageMutation = { __typename?: 'MutationRoot', createPage: { __typename?: 'Page', id: number } };
+
+export type GetPageByIdQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type GetPageByIdQuery = { __typename?: 'QueryRoot', pageById?: { __typename?: 'Page', id: number, title: string, bodyHtml: string } | null };
 
 export type GetPageByTitleQueryVariables = Exact<{
   title: Scalars['String'];
@@ -99,6 +118,43 @@ export function useCreatePageMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreatePageMutationHookResult = ReturnType<typeof useCreatePageMutation>;
 export type CreatePageMutationResult = Apollo.MutationResult<CreatePageMutation>;
 export type CreatePageMutationOptions = Apollo.BaseMutationOptions<CreatePageMutation, CreatePageMutationVariables>;
+export const GetPageByIdDocument = gql`
+    query getPageById($id: Int!) {
+  pageById(id: $id) {
+    id
+    title
+    bodyHtml
+  }
+}
+    `;
+
+/**
+ * __useGetPageByIdQuery__
+ *
+ * To run a query within a React component, call `useGetPageByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPageByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPageByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetPageByIdQuery(baseOptions: Apollo.QueryHookOptions<GetPageByIdQuery, GetPageByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPageByIdQuery, GetPageByIdQueryVariables>(GetPageByIdDocument, options);
+      }
+export function useGetPageByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPageByIdQuery, GetPageByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPageByIdQuery, GetPageByIdQueryVariables>(GetPageByIdDocument, options);
+        }
+export type GetPageByIdQueryHookResult = ReturnType<typeof useGetPageByIdQuery>;
+export type GetPageByIdLazyQueryHookResult = ReturnType<typeof useGetPageByIdLazyQuery>;
+export type GetPageByIdQueryResult = Apollo.QueryResult<GetPageByIdQuery, GetPageByIdQueryVariables>;
 export const GetPageByTitleDocument = gql`
     query getPageByTitle($title: String!) {
   pageByTitle(title: $title) {

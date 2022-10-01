@@ -1,7 +1,7 @@
 use std::time::Duration;
 
 use actix_cors::Cors;
-use actix_web::{guard, web, web::Data, App, HttpResponse, HttpServer, Result, http::header};
+use actix_web::{guard, http::header, web, web::Data, App, HttpResponse, HttpServer, Result};
 use agql::{
     http::{playground_source, GraphQLPlaygroundConfig},
     EmptySubscription, Schema,
@@ -38,6 +38,7 @@ async fn main() -> std::io::Result<()> {
             .wrap(
                 Cors::default()
                     .allowed_origin("http://localhost:3000")
+                    .allowed_origin("http://localhost:8000")
                     .allowed_methods(vec!["GET", "POST"])
                     .allowed_headers(vec![header::AUTHORIZATION, header::ACCEPT])
                     .allowed_header(header::CONTENT_TYPE)
@@ -45,11 +46,7 @@ async fn main() -> std::io::Result<()> {
             )
             .app_data(Data::new(schema.clone()))
             .service(web::resource("/").guard(guard::Post()).to(index))
-            .service(
-                web::resource("/")
-                    .guard(guard::Get())
-                    .to(index_graphiql),
-            )
+            .service(web::resource("/").guard(guard::Get()).to(index_graphiql))
     })
     .bind("127.0.0.1:8000")?
     .run()

@@ -1,17 +1,22 @@
-import type { NextPage } from "next";
-import { useGetPageByTitleQuery } from "../generated/graphql";
+import type { GetServerSidePropsContext, NextPage } from "next";
+import { Page } from "../generated/graphql";
+import { sdk } from "../src/client";
 
-const Home: NextPage = () => {
-  const { data } = useGetPageByTitleQuery({
-    variables: {
-      title: "Hi👋🏻, I'm ryuma017",
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const data = await sdk.getPageByTitle({ title: "Hi👋🏻, I'm ryuma017" });
+  const page = data.pageByTitle;
+  return {
+    props: {
+      page,
     },
-  });
+  };
+}
 
+const Home: NextPage<{ page: Page }> = ({ page }) => {
   return (
     <>
-      <h1>{data?.pageByTitle?.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: data?.pageByTitle?.bodyHtml ?? "" }}></div>
+      <h1>{page.title}</h1>
+      <div dangerouslySetInnerHTML={{ __html: page.bodyHtml ?? "" }}></div>
     </>
   );
 };

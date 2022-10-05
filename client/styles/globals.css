@@ -1,9 +1,10 @@
 @import "@blueprintjs/core/lib/css/blueprint.css";
+@import "github-markdown-css/github-markdown.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-    padding-top: 50px;
+    padding-top: 70px;
 }

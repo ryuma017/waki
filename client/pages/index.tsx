@@ -1,3 +1,4 @@
+import { H1 } from "@blueprintjs/core";
 import type { GetServerSidePropsContext, NextPage } from "next";
 import { AppNavBar } from "../components/AppNavBar";
 import { Page } from "../generated/graphql";
@@ -17,8 +18,12 @@ const Home: NextPage<{ page: Page }> = ({ page }) => {
   return (
     <>
       <AppNavBar />
-      <h1>{page.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: page.bodyHtml ?? "" }}></div>
+      <div className="mx-auto max-w-screen-md">
+        <H1>{page.title}</H1>
+        <article className="markdown-body">
+          <div dangerouslySetInnerHTML={{ __html: page.bodyHtml ?? "" }} />
+        </article>
+      </div>
     </>
   );
 };
